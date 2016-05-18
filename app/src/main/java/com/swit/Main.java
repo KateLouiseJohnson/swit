@@ -1,16 +1,14 @@
 package com.swit;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.swit.wword.ImageProcessor;
 import com.swit.wword.WTree;
 import com.swit.wword.WWord;
 import com.swit.wword.WWordContext;
@@ -39,30 +37,17 @@ public class Main extends AppCompatActivity {
         tree.addWord(flakeWord);
         tree.addWord(cranberriesWord);
 
-        WWord testFlour = loadFromWord("flour_small.jpg");
+        WWord testFlour = ImageProcessor.loadFromWord(getAssets(), "flour_small.jpg");
         searchFor(tree, testFlour, "Flour");
 
-        WWord testCranberries = loadFromWord("cranberries_small.jpg");
+        WWord testCranberries = ImageProcessor.loadFromWord(getAssets(), "cranberries_small.jpg");
         searchFor(tree, testCranberries, "Cranberries");
 
-        WWord testFlakes = loadFromWord("flakes_small.jpg");
+        WWord testCranberries2 = ImageProcessor.loadFromWord(getAssets(), "test2.jpg", new Rect(90, 118, 90 + 170, 118 +  30));
+        searchFor(tree, testCranberries2, "Cranberries 2");
+
+        WWord testFlakes = ImageProcessor.loadFromWord(getAssets(), "flakes_small.jpg");
         searchFor(tree, testFlakes, "Flakes");
-    }
-
-    public WWord loadFromWord(String filename) {
-
-        InputStream istr;
-        Bitmap bitmap = null;
-        try {
-            istr = getAssets().open(filename);
-            bitmap = BitmapFactory.decodeStream(istr);
-        } catch (IOException e) {
-            // handle exception
-            Log.e("Error", "Unable to load asset: " + filename);
-            return null;
-        }
-
-        return WWord.createFromScaledImage("", bitmap);
     }
 
     public static void searchFor(WTree tree, WWord word, String expectedWord) {

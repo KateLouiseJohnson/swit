@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class WWord {
     public ArrayList<int[]> values = new ArrayList<>();
     public String word;
+    public static final int TEST_HEIGHT = 7;
 
     public static WWord createTestString(String word, Typeface typeface) {
         Paint whitePaint = new Paint();
@@ -41,9 +42,14 @@ public class WWord {
     }
 
     public static WWord createFromScaledImage(String word, Bitmap image) {
-        int subWidth = (int)(Math.ceil(image.getWidth() / 30.0) * 30.0);
+        int imageWidth = image.getWidth();
+        if (image.getHeight() != TEST_HEIGHT) {
+            float dh = (float)TEST_HEIGHT / (float)image.getHeight();
+            imageWidth = (int)(image.getWidth() * dh);
+        }
+        int subWidth = (int)(Math.ceil(imageWidth / 30.0) * 30.0);
 
-        image = Bitmap.createScaledBitmap(image, subWidth, image.getHeight(), true);
+        image = Bitmap.createScaledBitmap(image, subWidth, TEST_HEIGHT, true);
         return createFromImage(word, image);
     }
 
