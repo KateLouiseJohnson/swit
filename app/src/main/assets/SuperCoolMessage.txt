@@ -1,1 +1,17 @@
-﻿Goodbye Cruel World.
+﻿E100	Curcumin	Color - Yellow and Orange	Safe
+E101	Riboflavin (Vitamin B2)	Color - Yellow and Orange. NUTR/DS, GRAS/FS, Cereal Flours - Part 137; Atrmentary Pastes - Part 139; Bakery Prods - Part 136; GRAS, GMP - 182.5695, 184.1695	Safe
+E102	Tartrazine	Colour - Yellow and Orange	Forbidden in some parts of the western world!May increase hyperactivity in affected children. Asthmatics sometimes react badly. Take care if you are sensitive to Aspirin.
+E103	alkanet, alkannin	Colour - Yellow and Orange	Forbidden in some parts of the western world!May increase hyperactivity in affected children. Asthmatics sometimes react badly. Take care if you are sensitive to Aspirin.
+E104	Quinoline Yellow	Colour - Yellow and Orange	May increase hyperactivity in affected children.
+E110	Sunset Yellow FCF / Orange Yellow S	Colour - Yellow and Orange	May increase hyperactivity in affected children. Take care if you are sensitive to Aspirin.
+E120	Cochineal / Carminic Acid	Colour - Red	May increase hyperactivity in affected children.
+E122	Carmoisine / Azorubine	Colour - Red	May increase hyperactivity in affected children. Asthmatics sometimes react badly. Take care if you are sensitive to Aspirin.
+E123	Amaranth	Colour - Red	Very DangerousMay increase hyperactivity in affected children. Take care if you are sensitive to Aspirin.
+E124	Ponceau 4R / Cochineal Red A	Colour - Red	May increase hyperactivity in affected children. Asthmatics sometimes react badly. Take care if you are sensitive to Aspirin.
+E127	Erythrosine BS	Colour - Red	May increase hyperactivity in affected children.
+E131	Patent Blue V	Colour - Blue	May increase hyperactivity in affected children. Asthmatics sometimes react badly. Take care if you are sensitive to Aspirin. Be cautious if you suffer from allergies or intolerances.
+E132	Indigo Carmine / Idigotine	Colour - Blue	May increase hyperactivity in affected children. Asthmatics sometimes react badly. Take care if you are sensitive to Aspirin. Be cautious if you suffer from allergies or intolerances.
+E140	Chlorophyll	Colour - Green	Safe
+E141	Copper Complex of Chlorophyll	Colour - Green	Suspicious
+E142	Green S / Acid Brilliant Green BS	Colour - Green	Cancer
+E150	Caramel	Colour - Brown and Black	Suspicious
