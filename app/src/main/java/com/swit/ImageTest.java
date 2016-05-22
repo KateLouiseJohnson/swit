@@ -40,6 +40,9 @@ public class ImageTest extends AppCompatActivity {
         ImageProcessor.LoadResult testCranberries = ImageProcessor.loadFromWord(getAssets(), "cranberries_small.jpg");
         searchFor(tree, testCranberries.word, "Cranberries");
 
+        ImageProcessor.LoadResult testCranberriesInverted = ImageProcessor.loadFromWord(getAssets(), "cranberries_small_inverted.jpg");
+        searchFor(tree, testCranberriesInverted.word, "Cranberries Inverted");
+
         ImageProcessor.LoadResult testCranberries2 = ImageProcessor.loadFromWord(getAssets(), "test2.jpg", new Rect(90, 118, 90 + 170, 118 +  30));
         searchFor(tree, testCranberries2.word, "Cranberries 2");
 

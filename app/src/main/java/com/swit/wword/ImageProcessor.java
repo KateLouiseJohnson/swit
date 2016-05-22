@@ -83,7 +83,6 @@ public class ImageProcessor {
     }
     private static void setContrast(ColorMatrix cm, float contrast) {
         float scale = contrast + 1.f;
-        scale *= -1;
         float translate = (-.5f * scale + .5f) * 255.f;
 
         final float R = 0.213f;
