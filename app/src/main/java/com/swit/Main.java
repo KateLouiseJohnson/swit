@@ -1,21 +1,11 @@
 package com.swit;
 
-import android.graphics.Bitmap;
-import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.swit.wword.ImageProcessor;
-import com.swit.wword.WTree;
-import com.swit.wword.WWord;
-import com.swit.wword.WWordContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +16,6 @@ import java.util.List;
 
 public class Main extends AppCompatActivity {
 
-    private Typeface testFont;
     public Additives store = new Additives();
 
     @Override
@@ -34,51 +23,8 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        testFont = Typeface.createFromAsset(getAssets(), "LiberationSans-Regular.ttf");
-
-        WWord flourWord = WWord.createTestString("Flour", testFont);
-        WWord flakeWord = WWord.createTestString("Flakes", testFont);
-        WWord cranberriesWord = WWord.createTestString("Cranberries", testFont);
-
-        WTree tree = new WTree();
-        tree.addWord(flourWord);
-        tree.addWord(flakeWord);
-        tree.addWord(cranberriesWord);
-
-        ImageProcessor.LoadResult testFlour = ImageProcessor.loadFromWord(getAssets(), "flour_small.jpg");
-        searchFor(tree, testFlour.word, "Flour");
-
-        ImageProcessor.LoadResult testCranberries = ImageProcessor.loadFromWord(getAssets(), "cranberries_small.jpg");
-        searchFor(tree, testCranberries.word, "Cranberries");
-
-        ImageProcessor.LoadResult testCranberries2 = ImageProcessor.loadFromWord(getAssets(), "test2.jpg", new Rect(90, 118, 90 + 170, 118 +  30));
-        searchFor(tree, testCranberries2.word, "Cranberries 2");
-
-        ImageProcessor.LoadResult testFlakes = ImageProcessor.loadFromWord(getAssets(), "flakes_small.jpg");
-        searchFor(tree, testFlakes.word, "Flakes");
-
-        ImageView imageTest = (ImageView)findViewById(R.id.img_test);
-        ImageView imageOrig = (ImageView)findViewById(R.id.img_orig);
-        Bitmap testImage = ImageProcessor.loadAsset(getAssets(), "testOrig.jpg");
-        Bitmap cleanedImage = ImageProcessor.cleanupImage(testImage);
-        imageOrig.setImageBitmap(testImage);
-        imageTest.setImageBitmap(cleanedImage);
-
-        LinearLayout layout = (LinearLayout)findViewById(R.id.layout_main);
-        layout.invalidate();
-
         /*Kate's Sections --------------*/
         loadContent();
-    }
-
-    public static void searchFor(WTree tree, WWord word, String expectedWord) {
-        Log.i("Search", "\nSearching for " + expectedWord);
-        WWordContext searchContext = new WWordContext(word);
-        tree.match(searchContext);
-
-        for (WWordContext.ScoredWordMatch match : searchContext.matches) {
-            Log.i("Search", "Match: " + match.score + " " + match.word.word);
-        }
     }
 
     /*
