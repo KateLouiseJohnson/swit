@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -17,19 +19,25 @@ import java.util.List;
 public class Main extends AppCompatActivity {
 
     public Additives store = new Additives();
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*Kate's Sections --------------*/
+
         loadContent();
+        mDrawerList = (ListView)findViewById(R.id.sliding_menu);
+        addDrawerItems();
     }
 
-    /*
-    * Kate's Sections --------------
-    */
+    private void addDrawerItems() {
+        String[] osArray = { "Search", "Favorites", "Profile" };
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdapter);
+    }
 
     public String loadContent() {
         try {
