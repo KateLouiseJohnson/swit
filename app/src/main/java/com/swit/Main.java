@@ -1,9 +1,13 @@
 package com.swit;
 
+import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -18,25 +22,26 @@ import java.util.List;
 
 public class Main extends AppCompatActivity {
 
-    public Additives store = new Additives();
+    private Additives store = new Additives();
+
+    private String[] mMenuItems;
+    private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    private ArrayAdapter<String> mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         loadContent();
-        mDrawerList = (ListView)findViewById(R.id.sliding_menu);
-        addDrawerItems();
-    }
 
-    private void addDrawerItems() {
-        String[] osArray = { "Search", "Favorites", "Profile" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
-        mDrawerList.setAdapter(mAdapter);
+        mMenuItems = getResources().getStringArray(R.array.nav_drawer_items);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView)findViewById(R.id.sliding_menu);
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_expandable_list_item_1, mMenuItems));  //use custom textview menu_list
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
     public String loadContent() {
@@ -57,13 +62,30 @@ public class Main extends AppCompatActivity {
 
     public String GetAdditive(String searchTerm){
 
-        if(store.list.containsKey(searchTerm)){
-            Additive additive = store.list.get(searchTerm);
-            String result = additive.code + "\n" +
-                    additive.name + "\n" +
-                    additive.desc + "\n" +
-                    additive.warn + "\n";
-            return result;
+        for(int i = 0; i < store.list.size(); i++) {
+
+            if (store.list.get(i).eCode.equalsIgnoreCase(searchTerm)) {
+                Additive additive = store.list.get(i);
+                String result = additive.eCode + "\n" +
+                        additive.name + "\n" +
+                        additive.desc + "\n" +
+                        additive.warn + "\n";
+                return result;
+            }else if(store.list.get(i).code.equalsIgnoreCase(searchTerm)){
+                Additive additive = store.list.get(i);
+                String result = additive.eCode + "\n" +
+                        additive.name + "\n" +
+                        additive.desc + "\n" +
+                        additive.warn + "\n";
+                return result;
+            }else if(store.list.get(i).name.toLowerCase().contains(searchTerm.toLowerCase())){
+                Additive additive = store.list.get(i);
+                String result = additive.eCode + "\n" +
+                        additive.name + "\n" +
+                        additive.desc + "\n" +
+                        additive.warn + "\n";
+                return result;
+            }
         }
 
         return "No Result Found -  You Lose!";
@@ -74,5 +96,12 @@ public class Main extends AppCompatActivity {
         EditText userInput = (EditText) findViewById(R.id.editText);
         String input = userInput.getText().toString();
         label.setText(GetAdditive(input));
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener{
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            //set new intent
+        }
     }
 }

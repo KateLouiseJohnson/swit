@@ -6,13 +6,15 @@ package com.swit;
 public class Additive {
 
     public String code;
+    public String eCode;
     public String name;
     public String desc;
     public String warn;
 
-    public Additive(String code, String name, String desc, String warn){
+    public Additive(String eCode, String name, String desc, String warn){
 
-        this.code = code;
+        this.eCode = eCode;
+        this.code = eCode.replace("E","");
         this.name = name;
         this.desc = desc;
         this.warn = warn;
