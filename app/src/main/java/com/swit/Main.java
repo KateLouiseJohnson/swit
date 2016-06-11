@@ -1,20 +1,17 @@
 package com.swit;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.Debug;
+import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
-
-import com.swit.wword.WTree;
-import com.swit.wword.WWord;
-import com.swit.wword.WWordContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,66 +22,27 @@ import java.util.List;
 
 public class Main extends AppCompatActivity {
 
-    private Typeface testFont;
-    public Additives store = new Additives();
+    private Additives store = new Additives();
+
+    private String[] mMenuItems;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        testFont = Typeface.createFromAsset(getAssets(), "LiberationSans-Regular.ttf");
-
-        WWord flourWord = WWord.createTestString("Flour", testFont);
-        WWord flakeWord = WWord.createTestString("Flakes", testFont);
-        WWord cranberriesWord = WWord.createTestString("Cranberries", testFont);
-        WTree tree = new WTree();
-        tree.addWord(flourWord);
-        tree.addWord(flakeWord);
-        tree.addWord(cranberriesWord);
-
-        WWord testFlour = loadFromWord("flour_small.jpg");
-        searchFor(tree, testFlour, "Flour");
-
-        WWord testCranberries = loadFromWord("cranberries_small.jpg");
-        searchFor(tree, testCranberries, "Cranberries");
-
-        WWord testFlakes = loadFromWord("flakes_small.jpg");
-        searchFor(tree, testFlakes, "Flakes");
-
-        /*Kate's Sections --------------*/
         loadContent();
+
+        mMenuItems = getResources().getStringArray(R.array.nav_drawer_items);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView)findViewById(R.id.sliding_menu);
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_expandable_list_item_1, mMenuItems));  //use custom textview menu_list
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
-
-    public WWord loadFromWord(String filename) {
-
-        InputStream istr;
-        Bitmap bitmap = null;
-        try {
-            istr = getAssets().open(filename);
-            bitmap = BitmapFactory.decodeStream(istr);
-        } catch (IOException e) {
-            // handle exception
-            Log.e("Error", "Unable to load asset: " + filename);
-            return null;
-        }
-
-        return WWord.createFromScaledImage("", bitmap);
-    }
-
-    public static void searchFor(WTree tree, WWord word, String expectedWord) {
-        Log.i("Search", "\nSearching for " + expectedWord);
-        WWordContext searchContext = new WWordContext(word);
-        tree.match(searchContext);
-
-        for (WWordContext.ScoredWordMatch match : searchContext.matches) {
-            Log.i("Search", "Match: " + match.score + " " + match.word.word);
-        }
-    }
-
-    /*
-    * Kate's Sections --------------
-    */
 
     public String loadContent() {
         try {
@@ -104,13 +62,30 @@ public class Main extends AppCompatActivity {
 
     public String GetAdditive(String searchTerm){
 
-        if(store.list.containsKey(searchTerm)){
-            Additive additive = store.list.get(searchTerm);
-            String result = additive.code + "\n" +
-                    additive.name + "\n" +
-                    additive.desc + "\n" +
-                    additive.warn + "\n";
-            return result;
+        for(int i = 0; i < store.list.size(); i++) {
+
+            if (store.list.get(i).eCode.equalsIgnoreCase(searchTerm)) {
+                Additive additive = store.list.get(i);
+                String result = additive.eCode + "\n" +
+                        additive.name + "\n" +
+                        additive.desc + "\n" +
+                        additive.warn + "\n";
+                return result;
+            }else if(store.list.get(i).code.equalsIgnoreCase(searchTerm)){
+                Additive additive = store.list.get(i);
+                String result = additive.eCode + "\n" +
+                        additive.name + "\n" +
+                        additive.desc + "\n" +
+                        additive.warn + "\n";
+                return result;
+            }else if(store.list.get(i).name.toLowerCase().contains(searchTerm.toLowerCase())){
+                Additive additive = store.list.get(i);
+                String result = additive.eCode + "\n" +
+                        additive.name + "\n" +
+                        additive.desc + "\n" +
+                        additive.warn + "\n";
+                return result;
+            }
         }
 
         return "No Result Found -  You Lose!";
@@ -121,5 +96,12 @@ public class Main extends AppCompatActivity {
         EditText userInput = (EditText) findViewById(R.id.editText);
         String input = userInput.getText().toString();
         label.setText(GetAdditive(input));
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener{
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            //set new intent
+        }
     }
 }

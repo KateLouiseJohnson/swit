@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Swit.iml" filepath="$PROJECT_DIR$/Swit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/swit.iml" filepath="$PROJECT_DIR$/swit.iml" />
     </modules>
   </component>
 </project>

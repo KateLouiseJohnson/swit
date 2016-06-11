@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class WWord {
     public ArrayList<int[]> values = new ArrayList<>();
     public String word;
+    public static final int TEST_HEIGHT = 7;
 
     public static WWord createTestString(String word, Typeface typeface) {
         Paint whitePaint = new Paint();
@@ -41,9 +42,14 @@ public class WWord {
     }
 
     public static WWord createFromScaledImage(String word, Bitmap image) {
-        int subWidth = (int)(Math.ceil(image.getWidth() / 30.0) * 30.0);
+        int imageWidth = image.getWidth();
+        if (image.getHeight() != TEST_HEIGHT) {
+            float dh = (float)TEST_HEIGHT / (float)image.getHeight();
+            imageWidth = (int)(image.getWidth() * dh);
+        }
+        int subWidth = (int)(Math.ceil(imageWidth / 30.0) * 30.0);
 
-        image = Bitmap.createScaledBitmap(image, subWidth, image.getHeight(), true);
+        image = Bitmap.createScaledBitmap(image, subWidth, TEST_HEIGHT, true);
         return createFromImage(word, image);
     }
 
@@ -51,87 +57,22 @@ public class WWord {
         WWord result = new WWord();
         result.word = word;
 
-        for (int x = 0; x < image.getWidth(); x++) {
+        for (int x = 1; x < image.getWidth(); x++) {
             int []columnValues = new int[image.getHeight()];
 
             int yi = 0;
             for (int y = 0; y < image.getHeight(); y++) {
                 int argb = image.getPixel(x, y);
+                int prevArgb = image.getPixel(x - 1, y);
                 int value = (0xFF - (0xFF & argb)) / 16;
-                columnValues[yi++] = value;
+                int prevValue = (0xFF - (0xFF & prevArgb)) / 16;
+                columnValues[yi++] = Math.abs(value - prevValue);
             }
             result.values.add(columnValues);
         }
 
         return result;
     }
-
-    /*
-    public static WWord createFromImage(String word, BufferedImage image) {
-        return createFromImage(word, image, null);
-    }
-
-    public static WWord createTestString(String word) {
-        BufferedImage scaled = new BufferedImage(100, 7, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = scaled.createGraphics();
-        g.setColor(Color.white);
-        g.fillRect(0, 0, scaled.getWidth(), scaled.getHeight());
-        g.setColor(Color.black);
-        g.setFont(new Font("Arial", Font.BOLD, 7));
-        g.setRenderingHint(
-            RenderingHints.KEY_TEXT_ANTIALIASING,
-            RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
-        g.drawString(word, -1, 6);
-
-        int wordWidth = g.getFontMetrics().stringWidth(word);
-
-        return createFromImage(word, scaled, new Rectangle(0, 0, wordWidth, 7));
-    }
-
-    public static WWord createFromImage(String word, BufferedImage image, java.awt.Rectangle rectangle) {
-        WWord result = new WWord();
-        result.word = word;
-
-        int width = rectangle != null ? (int)rectangle.getWidth() : image.getWidth();
-        int subWidth = (int)(Math.ceil(width / 30.0) * 30.0);
-        BufferedImage subimage = image;
-        BufferedImage scaled = image;
-        if (rectangle != null) {
-            subimage = image.getSubimage(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-        }
-
-        if (subimage.getWidth() != subWidth) {
-            scaled = new BufferedImage(subWidth, subimage.getHeight(), BufferedImage.TYPE_INT_ARGB);
-            AffineTransform transform = new AffineTransform();
-            transform.scale(subWidth / (double) subimage.getWidth(), 1.0);
-
-            AffineTransformOp transformOp = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
-            scaled = transformOp.filter(subimage, scaled);
-
-            try {
-                File output = new File(word + ".png");
-                ImageIO.write(scaled, "png", output);
-            }
-            catch (IOException exp) {
-                System.out.println("Output exception!");
-            }
-        }
-
-        for (int x = 0; x < scaled.getWidth(); x++) {
-            int []columnValues = new int[scaled.getHeight()];
-
-            int yi = 0;
-            for (int y = 0; y < scaled.getHeight(); y++) {
-                int argb = scaled.getRGB(x, y);
-                int value = (0xFF - (0xFF & argb)) / 16;
-                columnValues[yi++] = value;
-            }
-            result.values.add(columnValues);
-        }
-
-        return result;
-    }
-    */
 
     public String debugDisplay() {
         String result = "Word: " + word + "\n";

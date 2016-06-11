@@ -5,6 +5,7 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class Additives {
 
-    public HashMap<String, Additive> list = new HashMap<String,Additive>();
+    public List<Additive> list = new ArrayList<>();
 
     public Additives(){
 
@@ -24,7 +25,7 @@ public class Additives {
         for (int i = 0; i < lines.size(); i++) {
             String[] split = lines.get(i).split("\\t");
             Additive additive = new Additive(split[0],split[1],split[2],split[3]);
-            this.list.put(split[0],additive);
+            this.list.add(additive);
         }
     }
 }
