@@ -33,8 +33,7 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        loadContent();
+        store.loadContent(this);
 
         mMenuItems = getResources().getStringArray(R.array.nav_drawer_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -44,58 +43,26 @@ public class Main extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
-    public String loadContent() {
-        try {
-            InputStream file = getAssets().open("SuperCoolMessage.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(file));
-            String line;
-            List<String> list = new ArrayList<>();
-            while ((line = reader.readLine()) != null) {
-                list.add(line);
-            }
-            this.store.LoadAdditives(list);
-        } catch (IOException e) {
-            Log.e("Error", "Unable to load contents!");
-        }
-        return null;
-    }
-
-    public String GetAdditive(String searchTerm){
-
-        for(int i = 0; i < store.list.size(); i++) {
-
-            if (store.list.get(i).eCode.equalsIgnoreCase(searchTerm)) {
-                Additive additive = store.list.get(i);
-                String result = additive.eCode + "\n" +
-                        additive.name + "\n" +
-                        additive.desc + "\n" +
-                        additive.warn + "\n";
-                return result;
-            }else if(store.list.get(i).code.equalsIgnoreCase(searchTerm)){
-                Additive additive = store.list.get(i);
-                String result = additive.eCode + "\n" +
-                        additive.name + "\n" +
-                        additive.desc + "\n" +
-                        additive.warn + "\n";
-                return result;
-            }else if(store.list.get(i).name.toLowerCase().contains(searchTerm.toLowerCase())){
-                Additive additive = store.list.get(i);
-                String result = additive.eCode + "\n" +
-                        additive.name + "\n" +
-                        additive.desc + "\n" +
-                        additive.warn + "\n";
-                return result;
-            }
-        }
-
-        return "No Result Found -  You Lose!";
-    }
-
     public void userSearch(View view) {
+
+        ArrayList<String> input = getInput();
         TextView label = (TextView) findViewById(R.id.result);
-        EditText userInput = (EditText) findViewById(R.id.editText);
-        String input = userInput.getText().toString();
-        label.setText(GetAdditive(input));
+        label.setText(store.getAdditive(input));
+    }
+
+    public ArrayList<String> getInput(){
+
+        ArrayList<String> list = new ArrayList<>();
+
+        EditText eText = (EditText) findViewById(R.id.editText);
+        String value = eText.getText().toString();
+        String[] splitString = value.split(",");
+
+        for(int i = 0; i < splitString.length; i++){
+            list.add(splitString[i]);
+        }
+
+        return list;
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener{
