@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layout"
     android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,38 +14,70 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
         tools:context="com.swit.Main">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:hint="@string/searchText"
+            android:ems="10"
+            android:lines="8"
+            android:minLines="6"
+            android:gravity="top|left"
+            android:maxLines="10"
+            android:scrollbars="vertical"
+            android:shadowColor="@color/material_grey_800" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:context="com.swit.Main"
+        android:layout_gravity="center_horizontal|right">
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search"
-            android:id="@+id/btn_make_it_do"
+            android:text="@string/textEntryButton"
+            android:id="@+id/btn_text_capture"
             android:onClick="userSearch"
-            android:layout_alignTop="@+id/editText"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:clickable="true"
+            android:textAlignment="center"
+            android:layout_gravity="center_horizontal" />
 
-        <EditText
+        <Button
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:hint="Search for additive... (E150, E120)"
-            android:ems="10"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/btn_make_it_do"
-            android:layout_toStartOf="@+id/btn_make_it_do" />
+            android:text="@string/cameraButton"
+            android:id="@+id/btn_camera_capture"
+            android:onClick="userSearch"
+            android:clickable="true"
+            android:textAlignment="center"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/searchButton"
+            android:id="@+id/btn_search"
+            android:onClick="userSearch"
+            android:clickable="true"
+            android:textAlignment="center" />
+
+    </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            android:id="@+id/lbl_world" />
+            android:id="@+id/result"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <ListView
         android:layout_width="200dp"

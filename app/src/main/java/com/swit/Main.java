@@ -92,7 +92,7 @@ public class Main extends AppCompatActivity {
     }
 
     public void userSearch(View view) {
-        TextView label = (TextView) findViewById(R.id.lbl_world);
+        TextView label = (TextView) findViewById(R.id.result);
         EditText userInput = (EditText) findViewById(R.id.editText);
         String input = userInput.getText().toString();
         label.setText(GetAdditive(input));
