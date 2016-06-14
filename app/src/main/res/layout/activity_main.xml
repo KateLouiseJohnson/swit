@@ -6,77 +6,84 @@
     android:id="@+id/drawer_layout"
     android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical"
-        tools:context="com.swit.Main">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-        <EditText
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:orientation="vertical"
+            tools:context="com.swit.Main">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText"
+                android:hint="@string/searchText"
+                android:ems="10"
+                android:lines="8"
+                android:minLines="6"
+                android:gravity="top|left"
+                android:maxLines="10"
+                android:scrollbars="vertical" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:hint="@string/searchText"
-            android:ems="10"
-            android:lines="8"
-            android:minLines="6"
-            android:gravity="top|left"
-            android:maxLines="10"
-            android:scrollbars="vertical" />
+            android:orientation="horizontal"
+            tools:context="com.swit.Main"
+            android:layout_gravity="center_horizontal|right">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context="com.swit.Main"
-        android:layout_gravity="center_horizontal|right">
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textEntryButton"
+                android:id="@+id/btn_text_capture"
+                android:onClick="userSearch"
+                android:clickable="true"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textEntryButton"
-            android:id="@+id/btn_text_capture"
-            android:onClick="userSearch"
-            android:clickable="true"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal" />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cameraButton"
+                android:id="@+id/btn_camera_capture"
+                android:onClick="userSearch"
+                android:clickable="true"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cameraButton"
-            android:id="@+id/btn_camera_capture"
-            android:onClick="userSearch"
-            android:clickable="true"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal" />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/searchButton"
+                android:id="@+id/btn_search"
+                android:onClick="userSearch"
+                android:clickable="true"
+                android:textAlignment="center" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/searchButton"
-            android:id="@+id/btn_search"
-            android:onClick="userSearch"
-            android:clickable="true"
-            android:textAlignment="center" />
+        </LinearLayout>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/result"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/result"/>
+        </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
     <ListView
         android:layout_width="200dp"
